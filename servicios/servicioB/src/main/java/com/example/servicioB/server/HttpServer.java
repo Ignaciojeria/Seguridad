@@ -1,16 +1,14 @@
-package com.example.servicioA.server;
+package com.example.servicioB.server;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-
-import com.example.servicioA.controller.PersonaController;
+import com.example.servicioB.controller.HogarController;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
-
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -19,14 +17,13 @@ import io.vertx.ext.web.handler.CorsHandler;
 @Component
 public class HttpServer extends AbstractVerticle {
 	
-	PersonaController personaController=PersonaController.getInstance();
+	private HogarController hogarController=HogarController.getInstance();
 	
 	@Override
     public void start(Future<Void> future) throws Exception{
-		int PORT = 8181;
+		int PORT = 8182;
 		Router mainRouter = Router.router(vertx);
-		personaController.findAll(mainRouter);
-		
+		hogarController.findAll(mainRouter);
         Set<String> allowHeaders = getAllowedHeaders();
         Set<HttpMethod> allowMethods = getAllowedMethods();
         mainRouter.route().handler(BodyHandler.create());

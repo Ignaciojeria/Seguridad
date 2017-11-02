@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.example.servicioA.config.API;
-import com.example.servicioA.dao.PersonaDAO;
 import com.example.servicioA.service.PersonaService;
 
-import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
@@ -32,7 +30,7 @@ public class PersonaController {
 	 }
 	
 	  @PostConstruct     
-	  private void initStaticDao () {
+	  private void initStaticService () {
 		  personaService = this._personaService;
 	  }
 

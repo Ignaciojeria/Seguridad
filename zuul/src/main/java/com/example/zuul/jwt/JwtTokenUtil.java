@@ -98,10 +98,11 @@ public class JwtTokenUtil {
    private String generateToken(Map<String, Object> claims) {
 	   long tiempo=System.currentTimeMillis();
         return Jwts.builder()
-                .setClaims(claims)//claims
+               // .setClaims(claims)//claims
+        		.signWith(SignatureAlgorithm.HS256, secret)
                 .setIssuedAt(new Date(tiempo)) //creación del token
                 .setExpiration(new Date(tiempo+expiration)) //expiración del token
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .setClaims(claims)
                 .compact();
     }
    

@@ -126,7 +126,7 @@ public class JwtTokenUtil {
        return refreshedToken;
    }
    
-   public Boolean validateToken(String token, User userDetails) {
+   public boolean validateToken(String token, User userDetails) {
        User user = userDetails;
        final String username = getUsernameFromToken(token);
        final Date created = getCreatedDateFromToken(token);

@@ -24,11 +24,17 @@ public class UserDAO {
 		users.add(new User("nacho","123"));
 	}
 	
-	public User findUser(User user) {
+	public User findUserbyUser(User user) {
 	return	users.stream().
 		filter(item->item.getUserName().equals(user.getUserName())
 					&& item.getPassword().equals(user.getPassword())
 				).findFirst().orElse(null);
+	}
+	
+	public User findByUserName(String name) {
+		return users.stream()
+				.filter(item->item.getUserName().equals(name))
+				.findFirst().orElse(null);
 	}
 	
 

@@ -4,12 +4,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.example.zuul.domain.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
+@Component
 public class JwtTokenUtil {
 
 	//Claims del token
@@ -20,8 +22,8 @@ public class JwtTokenUtil {
 	 //Clave secreta asimetrica para el token!.
 	 private String secret="ClaveSecreta";
 	 
-	 //Expiración del token!
-	 private Long expiration=9000L;
+	 //Expiración del token! (expira en 15 minutos!)
+	 private Long expiration=900000L;
 	 
 	 //Obtener los claims de un token generado
     private Claims getClaimsFromToken(String token) {
@@ -70,10 +72,10 @@ public class JwtTokenUtil {
         }
         return expiration;
     }
-    
+  /*  
     private Date generateExpirationDate() {
         return new Date(System.currentTimeMillis() + expiration * 1000);
-    }
+    }*/
 
     private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
@@ -88,14 +90,17 @@ public class JwtTokenUtil {
     public String setUserForClaimsAndgenerateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, user.getUserName());
-        claims.put(CLAIM_KEY_CREATED, new Date());
+        //el token se crea con la fecha actual
+        claims.put(CLAIM_KEY_CREATED, new Date(System.currentTimeMillis()));
         return generateToken(claims);
     }
    //recibe los claims para generar el token
    private String generateToken(Map<String, Object> claims) {
+	   long tiempo=System.currentTimeMillis();
         return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(generateExpirationDate())
+                .setClaims(claims)//claims
+                .setIssuedAt(new Date(tiempo)) //creación del token
+                .setExpiration(new Date(tiempo+expiration)) //expiración del token
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }

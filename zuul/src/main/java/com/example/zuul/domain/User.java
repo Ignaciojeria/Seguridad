@@ -1,9 +1,12 @@
 package com.example.zuul.domain;
 
+import java.util.Date;
+
 public class User {
 	
 	private String userName;
 	private String password;
+	Date lastPasswordResetDate;
 	
 	public User() {}
 	
@@ -24,6 +27,16 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Date getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+
+	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
+	
+	
 	
 	
 	
